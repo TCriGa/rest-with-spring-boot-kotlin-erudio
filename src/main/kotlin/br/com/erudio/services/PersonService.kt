@@ -9,6 +9,17 @@ import java.util.logging.Logger
 class PersonService {
     private val counter: AtomicLong = AtomicLong()
     private val logger = Logger.getLogger(PersonService::class.java.name)
+    fun findAll(): List<Person> {
+        logger.info("Find all people!")
+        val people = mutableListOf<Person>()
+
+        for (i in 0..7) {
+            val person = mockPerson(i)
+
+            people.add(person)
+        }
+        return people
+    }
 
     fun findById(id: Long): Person {
         logger.info("Fetching person with id: $id")
@@ -23,18 +34,11 @@ class PersonService {
         return person
     }
 
-    fun findAll(): List<Person> {
-        logger.info("Find all people!")
+    fun create(person: Person) = person
 
-        val people = mutableListOf<Person>()
+    fun update(person: Person) = person
 
-        for (i in 0..7) {
-            val person = mockPerson(i)
-
-            people.add(person)
-        }
-        return people
-    }
+    fun delete(id: Long){}
 
     private fun mockPerson(i: Int): Person {
         val person = Person()
