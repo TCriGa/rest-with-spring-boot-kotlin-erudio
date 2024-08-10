@@ -1,6 +1,5 @@
 package br.com.erudio.controller
 
-import br.com.erudio.converters.NumberConverter
 import br.com.erudio.converters.NumberConverter.convertToDouble
 import br.com.erudio.converters.NumberConverter.isNumeric
 import br.com.erudio.exceptions.UnsupportedMathOperationException
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.atomic.AtomicLong
-import kotlin.math.sqrt
 
 @RestController
 class MathController {
@@ -50,7 +48,7 @@ class MathController {
         @PathVariable(value = "numberTwo") numberTwo: String?
     ): Double {
         if (!isNumeric(numberOne) || !isNumeric(numberTwo)) throw UnsupportedMathOperationException("Please set a numeric value")
-        return math.division(convertToDouble( numberOne), convertToDouble(numberTwo))
+        return math.division(convertToDouble(numberOne), convertToDouble(numberTwo))
     }
 
     @RequestMapping(value = ["mean/{numberOne}/{numberTwo}"])
