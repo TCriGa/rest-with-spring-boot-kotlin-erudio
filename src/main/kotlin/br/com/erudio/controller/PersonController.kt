@@ -4,7 +4,6 @@ import br.com.erudio.model.Person
 import br.com.erudio.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -14,20 +13,21 @@ class PersonController {
     @Autowired
     private lateinit var service: PersonService
 
-    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun findAll(
     ): List<Person> {
         return service.findAll()
     }
 
-    @GetMapping(value = ["/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["{id}"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun findById(
         @PathVariable(value = "id") id: Long,
     ): Person {
         return service.findById(id)
     }
 
-    @PostMapping(
+    @RequestMapping(
+        method = [RequestMethod.POST],
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
@@ -37,7 +37,8 @@ class PersonController {
         return service.create(person)
     }
 
-    @PutMapping(
+    @RequestMapping(
+        method = [RequestMethod.PUT],
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
@@ -47,11 +48,10 @@ class PersonController {
         return service.update(person)
     }
 
-    @DeleteMapping(value = ["{id}"])
+    @RequestMapping(value = ["{id}"], method = [RequestMethod.DELETE])
     fun delete(
         @PathVariable(value = "id") id: Long,
-    ): ResponseEntity<*> {
+    ) {
         service.delete(id)
-        return ResponseEntity.noContent().build<Any>()
     }
 }
