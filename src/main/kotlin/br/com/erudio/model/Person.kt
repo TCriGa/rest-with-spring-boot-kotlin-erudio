@@ -15,7 +15,7 @@ data class Person(
     @Column(name = "last_name", nullable = false, length = 80)
     var lastName: String = "",
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     var address: String = "",
 
     @Column(nullable = false, length = 6)
